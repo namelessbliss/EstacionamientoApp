@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".CuentaAdminActivity"
+    tools:context=".CuentaClienteActivity"
     tools:ignore="SpeakableTextPresentCheck">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,8 +29,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25"
+            tools:listitem="@layout/lista_estacionamientos_conectados" />
+
         <FrameLayout
-            android:id="@+id/frameLayout"
+            android:id="@+id/contentLoading"
             android:layout_width="0dp"
             android:layout_height="300dp"
             android:layout_marginTop="8dp"
@@ -53,10 +65,10 @@
             android:layout_marginTop="16dp"
             android:text="Añadir Auto "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/rvList" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName6"
+            android:id="@+id/etPlaca"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
@@ -74,10 +86,11 @@
             android:layout_marginEnd="16dp"
             android:background="#FF47525E"
             android:text="AÑADIR"
+            android:onClick="RegistrarPlaca"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName6"
+            app:layout_constraintBottom_toBottomOf="@+id/etPlaca"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName6" />
+            app:layout_constraintTop_toTopOf="@+id/etPlaca" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

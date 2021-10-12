@@ -2,13 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adolfopardo.estacionamientoapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_car"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_car"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EstacionamientoApp">
+        android:theme="@style/Theme.EstacionamientoApp"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".DetalleEntradaSalidaActivity"
+            android:exported="true" />
         <activity
             android:name=".RegistroActivity"
             android:exported="true" />
@@ -51,6 +60,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <service android:name=".BroadcastService" />
+    </application>
 </manifest>

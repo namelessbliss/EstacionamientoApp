@@ -66,13 +66,13 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-                android:text="ESTACIONAR"
                 android:background="#FF47525E"
-                android:textColor="@color/white"
                 android:onClick="Estacionar"
+                android:text="ESTACIONAR"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+                app:layout_constraintTop_toBottomOf="@+id/spin" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -82,7 +82,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Costo por hora "
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+                app:layout_constraintTop_toBottomOf="@+id/etEstacionamiento" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -95,15 +95,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName3"
+                android:id="@+id/etEstacionamiento"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="B2"
                 android:editable="false"
+                android:ems="10"
                 android:focusable="false"
+                android:inputType="textPersonName"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/textView15"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView15"
@@ -203,55 +203,6 @@
                         android:text="E" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:text="1" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:src="@drawable/ic_car_red" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:src="@drawable/ic_car_green" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:src="@drawable/ic_car_red" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:src="@drawable/ic_car_red" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:src="@drawable/ic_car_red" />
-
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -267,6 +218,7 @@
                         android:text="1" />
 
                     <ImageView
+                        android:id="@+id/A1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -274,6 +226,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/B1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -281,6 +234,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/C1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -288,6 +242,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/D1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -295,6 +250,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/E1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -318,6 +274,7 @@
                         android:text="2" />
 
                     <ImageView
+                        android:id="@+id/A2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -325,6 +282,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/B2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -332,6 +290,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/C2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -339,6 +298,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/D2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -346,13 +306,12 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/E2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:src="@drawable/ic_car_red" />
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -369,6 +328,7 @@
                         android:text="3" />
 
                     <ImageView
+                        android:id="@+id/A3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -376,6 +336,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/B3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -383,6 +344,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/C3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -390,6 +352,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/D3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -397,6 +360,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/E3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -420,6 +384,7 @@
                         android:text="4" />
 
                     <ImageView
+                        android:id="@+id/A4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -427,6 +392,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/B4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -434,6 +400,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/C4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -441,6 +408,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/D4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -448,6 +416,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/E4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -471,6 +440,7 @@
                         android:text="5" />
 
                     <ImageView
+                        android:id="@+id/A5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -478,6 +448,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/B5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -485,6 +456,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/C5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -492,6 +464,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/D5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -499,6 +472,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/E5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -522,6 +496,7 @@
                         android:text="6" />
 
                     <ImageView
+                        android:id="@+id/A6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -529,6 +504,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/B6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -536,6 +512,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/C6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -543,6 +520,7 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/D6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -550,29 +528,44 @@
                         android:src="@drawable/ic_car_red" />
 
                     <ImageView
+                        android:id="@+id/E6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:src="@drawable/ic_car_red" />
-
-
                 </LinearLayout>
-
             </LinearLayout>
 
+            <FrameLayout
+                android:id="@+id/contentLoading"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/textView14"
+                tools:layout_editor_absoluteX="0dp">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
             <EditText
-                android:id="@+id/editTextTextPersonName4"
+                android:id="@+id/etCosto"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:editable="false"
                 android:ems="10"
+                android:focusable="false"
                 android:inputType="textPersonName"
                 android:text="S/. 4.00 "
-                android:editable="false"
-                android:focusable="false"
                 app:layout_constraintBottom_toBottomOf="@+id/textView18"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
+                app:layout_constraintStart_toStartOf="@+id/etEstacionamiento"
                 app:layout_constraintTop_toTopOf="@+id/textView18" />
 
             <TextView
@@ -583,33 +576,41 @@
                 android:layout_marginTop="8dp"
                 android:text="Hora de entrada "
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+                app:layout_constraintTop_toBottomOf="@+id/etCosto" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName5"
+                android:id="@+id/etFechaEntrada"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="03/10/2021 04:08 "
                 android:editable="false"
+                android:ems="10"
                 android:focusable="false"
+                android:inputType="textPersonName"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/textView23"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
+                app:layout_constraintStart_toStartOf="@+id/etCosto"
                 app:layout_constraintTop_toTopOf="@+id/textView23" />
 
             <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="402dp"
+                android:id="@+id/spin"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:prompt="@string/Seleccionar_Auto"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Seleccionar vehiculo"
+                app:layout_constraintStart_toStartOf="@+id/textView23"
+                app:layout_constraintTop_toBottomOf="@+id/etFechaEntrada" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

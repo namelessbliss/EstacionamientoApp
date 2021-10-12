@@ -51,11 +51,11 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/bg_btn_circular"
                     android:gravity="end"
+                    android:onClick="PerfilAdm"
                     android:paddingHorizontal="5dp"
                     android:paddingVertical="2dp"
                     android:text="ADM"
                     android:textColor="@color/white"
-                    android:onClick="PerfilAdm"
                     android:textSize="@dimen/very_small_text"
                     app:layout_constraintBottom_toBottomOf="@+id/imageViewUser"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -67,11 +67,11 @@
                     android:layout_height="39dp"
                     android:layout_marginEnd="48dp"
                     android:layout_marginRight="48dp"
+                    android:onClick="PerfilAdm"
                     android:src="@drawable/ic_profile"
                     app:layout_constraintBottom_toBottomOf="@+id/textViewToolbar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textViewToolbar"
-                    android:onClick="PerfilAdm"
                     app:tint="#FF00A6FF" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -88,7 +88,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="true">
 
             <TextView
                 android:id="@+id/textView38"
@@ -97,15 +99,27 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="Estacionamientos ocupados"
-                android:textSize="@dimen/title"
                 android:textColor="@color/black"
+                android:textSize="@dimen/title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
+                app:layout_constraintTop_toBottomOf="@+id/etPlaca" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView38"
+                tools:listitem="@layout/lista_estacionamientos_conectados" />
 
             <FrameLayout
-                android:id="@+id/frameLayout2"
+                android:id="@+id/contentLoading"
                 android:layout_width="match_parent"
-                android:layout_height="650dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView38"
@@ -121,13 +135,13 @@
             </FrameLayout>
 
             <EditText
-                android:id="@+id/editTextTextPersonName7"
+                android:id="@+id/etPlaca"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="32dp"
                 android:ems="10"
-                android:defaultFocusHighlightEnabled="false"
+                android:imeOptions="flagNoExtractUi"
                 android:inputType="textPersonName"
                 android:text="Ingresa placa del vehiculo"
                 app:layout_constraintEnd_toStartOf="@+id/imageView8"
@@ -139,9 +153,10 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="32dp"
-                app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName7"
+                android:onClick="BuscarPlaca"
+                app:layout_constraintBottom_toBottomOf="@+id/etPlaca"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName7"
+                app:layout_constraintTop_toTopOf="@+id/etPlaca"
                 app:srcCompat="@drawable/ic_lupa" />
 
             <TextView

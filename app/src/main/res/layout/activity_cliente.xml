@@ -52,9 +52,9 @@
                     android:layout_marginRight="16dp"
                     android:background="@drawable/bg_btn_circular"
                     android:gravity="end"
+                    android:onClick="PerfilCliente"
                     android:paddingHorizontal="5dp"
                     android:paddingVertical="2dp"
-                    android:onClick="PerfilCliente"
                     android:text="Cuenta"
                     android:textColor="@color/white"
                     android:textSize="@dimen/very_small_text"
@@ -66,9 +66,9 @@
                     android:id="@+id/imageViewUser"
                     android:layout_width="39dp"
                     android:layout_height="39dp"
-                    android:onClick="PerfilCliente"
                     android:layout_marginEnd="48dp"
                     android:layout_marginRight="48dp"
+                    android:onClick="PerfilCliente"
                     android:src="@drawable/ic_profile"
                     app:layout_constraintBottom_toBottomOf="@+id/textViewToolbar"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -119,17 +119,17 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:onClick="ReservaEstacionamiento"
-                    android:background="#FFF4A77B">
+                    android:background="#FFF4A77B"
+                    android:onClick="ReservaEstacionamiento">
 
                     <TextView
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:textSize="@dimen/text"
                         android:text="Reservaciones"
                         android:textColor="@color/white"
+                        android:textSize="@dimen/text"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                         app:layout_constraintStart_toEndOf="@+id/imageView6"
                         app:layout_constraintTop_toTopOf="@+id/imageView6" />
@@ -162,8 +162,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:onClick="SeleccionEstacionamiento"
-                    android:background="#FFB8977E">
+                    android:background="#FFB8977E"
+                    android:onClick="SeleccionEstacionamiento">
 
                     <TextView
                         android:id="@+id/textView5"
@@ -171,8 +171,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="Encontrar estacionamento"
-                        android:textSize="@dimen/text"
                         android:textColor="@color/white"
+                        android:textSize="@dimen/text"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                         app:layout_constraintStart_toEndOf="@+id/imageView5"
                         app:layout_constraintTop_toTopOf="@+id/imageView5" />
@@ -189,7 +189,21 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7"
+                tools:listitem="@layout/lista_estacionamientos_conectados" />
+
             <FrameLayout
+                android:id="@+id/contentLoading"
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
                 android:layout_marginTop="28dp"
