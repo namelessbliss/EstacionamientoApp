@@ -23,6 +23,7 @@ import com.adolfopardo.estacionamientoapp.retrofit.request.RequestlistaPlacasCli
 import com.adolfopardo.estacionamientoapp.retrofit.request.Requestregistro;
 import com.adolfopardo.estacionamientoapp.retrofit.request.RequestregistroReserva;
 import com.adolfopardo.estacionamientoapp.retrofit.request.RequestregistroReservaInmediata;
+import com.adolfopardo.estacionamientoapp.retrofit.response.ResponseEstacionaientoA1;
 import com.adolfopardo.estacionamientoapp.retrofit.response.listaEstacionamiento;
 import com.adolfopardo.estacionamientoapp.retrofit.response.listaPlacaCliente;
 import com.adolfopardo.estacionamientoapp.retrofit.response.listaReservaCliente;
@@ -84,7 +85,12 @@ public class SeleccionEstacionamientoActivity extends AppCompatActivity implemen
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        doSomething();
+                        try {
+                            doSomething();
+                            doSomething2();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
@@ -217,6 +223,42 @@ public class SeleccionEstacionamientoActivity extends AppCompatActivity implemen
         startTimer();
     }
 
+    private void doSomething2() {
+        Call<List<ResponseEstacionaientoA1>> call = service.listarEstacionamientoA1();
+
+        call.enqueue(new Callback<List<ResponseEstacionaientoA1>>() {
+            @Override
+            public void onResponse(Call<List<ResponseEstacionaientoA1>> call, Response<List<ResponseEstacionaientoA1>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        if (response.body().size() > 0) {
+                            for (ResponseEstacionaientoA1 re : response.body()) {
+                                if (re.getIdEstacionamiento().equalsIgnoreCase("A1")) {
+                                    A1.setImageDrawable(getDrawable(R.drawable.ic_car_red));
+                                    A1.setTag("1");
+                                } else {
+                                    A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
+                                    A1.setTag("0");
+                                }
+                            }
+                        } else {
+                            A1.setTag("0");
+                            A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
+                        }
+                    } else {
+                        A1.setTag("0");
+                        A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ResponseEstacionaientoA1>> call, Throwable t) {
+                A1.setTag("0");
+            }
+        });
+    }
+
     private void doSomething() {
         Call<List<listaEstacionamiento>> call = service.listarEstacionamientos();
 
@@ -231,11 +273,11 @@ public class SeleccionEstacionamientoActivity extends AppCompatActivity implemen
                                 switch (obj.getIDEstacionamiento()) {
                                     case "A1":
                                         if (obj.getEstado().equalsIgnoreCase("0")) {
-                                            A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
-                                            A1.setTag("0");
+                                            //A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
+                                            //A1.setTag("0");
                                         } else {
-                                            A1.setImageDrawable(getDrawable(R.drawable.ic_car_red));
-                                            A1.setTag("1");
+                                            //A1.setImageDrawable(getDrawable(R.drawable.ic_car_red));
+                                            //A1.setTag("1");
                                         }
                                         break;
                                     case "A2":
@@ -555,7 +597,7 @@ public class SeleccionEstacionamientoActivity extends AppCompatActivity implemen
                         showToast("Registrado Exitosamente");
                         goToActivity(new ClienteActivity());
                     } else {
-                        showToast("ERROR: " + response.body().getDescripcion()+", Seleccione otro espacio");
+                        showToast("ERROR: " + response.body().getDescripcion() + ", Seleccione otro espacio");
                     }
                 }
             }

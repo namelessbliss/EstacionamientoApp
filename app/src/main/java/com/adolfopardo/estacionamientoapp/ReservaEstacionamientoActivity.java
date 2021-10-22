@@ -20,6 +20,7 @@ import com.adolfopardo.estacionamientoapp.retrofit.AeropuertosPeruService;
 import com.adolfopardo.estacionamientoapp.retrofit.request.RequestlistaPlacasCliente;
 import com.adolfopardo.estacionamientoapp.retrofit.request.RequestregistroReserva;
 import com.adolfopardo.estacionamientoapp.retrofit.request.RequestregistroReservaInmediata;
+import com.adolfopardo.estacionamientoapp.retrofit.response.ResponseEstacionaientoA1;
 import com.adolfopardo.estacionamientoapp.retrofit.response.listaEstacionamiento;
 import com.adolfopardo.estacionamientoapp.retrofit.response.listaPlacaCliente;
 import com.adolfopardo.estacionamientoapp.retrofit.response.registroReserva;
@@ -82,7 +83,12 @@ public class ReservaEstacionamientoActivity extends AppCompatActivity implements
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        doSomething();
+                        try {
+                            doSomething();
+                            doSomething2();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
@@ -181,7 +187,7 @@ public class ReservaEstacionamientoActivity extends AppCompatActivity implements
     public void goToActivity(AppCompatActivity activity) {
         Intent intent = new Intent(ReservaEstacionamientoActivity.this, activity.getClass());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("reserva","1");
+        intent.putExtra("reserva", "1");
         startActivity(intent);
         finish();
     }
@@ -204,6 +210,42 @@ public class ReservaEstacionamientoActivity extends AppCompatActivity implements
         toast.show();
     }
 
+    private void doSomething2() {
+        Call<List<ResponseEstacionaientoA1>> call = service.listarEstacionamientoA1();
+
+        call.enqueue(new Callback<List<ResponseEstacionaientoA1>>() {
+            @Override
+            public void onResponse(Call<List<ResponseEstacionaientoA1>> call, Response<List<ResponseEstacionaientoA1>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        if (response.body().size() > 0) {
+                            for (ResponseEstacionaientoA1 re : response.body()) {
+                                if (re.getIdEstacionamiento().equalsIgnoreCase("A1")) {
+                                    A1.setImageDrawable(getDrawable(R.drawable.ic_car_red));
+                                    A1.setTag("1");
+                                } else {
+                                    A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
+                                    A1.setTag("0");
+                                }
+                            }
+                        } else {
+                            A1.setTag("0");
+                            A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
+                        }
+                    } else {
+                        A1.setTag("0");
+                        A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ResponseEstacionaientoA1>> call, Throwable t) {
+                A1.setTag("0");
+            }
+        });
+    }
+
     private void doSomething() {
         Call<List<listaEstacionamiento>> call = service.listarEstacionamientos();
 
@@ -218,11 +260,11 @@ public class ReservaEstacionamientoActivity extends AppCompatActivity implements
                                 switch (obj.getIDEstacionamiento()) {
                                     case "A1":
                                         if (obj.getEstado().equalsIgnoreCase("0")) {
-                                            A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
-                                            A1.setTag("0");
+                                            //A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
+                                            //A1.setTag("0");
                                         } else {
-                                            A1.setImageDrawable(getDrawable(R.drawable.ic_car_red));
-                                            A1.setTag("1");
+                                            //A1.setImageDrawable(getDrawable(R.drawable.ic_car_red));
+                                            //A1.setTag("1");
                                         }
                                         break;
                                     case "A2":

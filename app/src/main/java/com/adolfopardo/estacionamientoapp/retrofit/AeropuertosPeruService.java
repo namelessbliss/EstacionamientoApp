@@ -71,6 +71,10 @@ public interface AeropuertosPeruService {
     Call<List<autosDelMes>> calcularAutosMes();
 
     @Headers("Content-Type: application/json")
+    @POST("listarEstacionamientosReservados.php")
+    Call<List<ResponseEstacionaientoA1>> listarEstacionamientoA1();
+
+    @Headers("Content-Type: application/json")
     @POST("registrarSalidaReserva.php")
     Call<registroSalida> registrarSalidaReserva(@Body RequestregistroSalida request);
 

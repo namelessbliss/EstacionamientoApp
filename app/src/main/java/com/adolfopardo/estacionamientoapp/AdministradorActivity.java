@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adolfopardo.estacionamientoapp.adapter.LugaresConectados;
@@ -39,10 +40,12 @@ public class AdministradorActivity extends AppCompatActivity {
     private List<listaReservaAdmin> list;
     private ViewGroup contentLoading;
     private EditText etPlaca;
+    TextView tvMsg;
 
     private Timer timer;
     private TimerTask timerTask;
     private Handler handler = new Handler();
+    public static boolean noLista = false;
 
     //To stop timer
     private void stopTimer() {
@@ -61,6 +64,8 @@ public class AdministradorActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             getListado();
+                            /*if (noLista)
+                                showToast("No hay registros de estacionamientos ocupados actualmente");*/
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -93,6 +98,7 @@ public class AdministradorActivity extends AppCompatActivity {
 
     private void bindViews() {
         toolbar = findViewById(R.id.toolbar);
+        tvMsg = findViewById(R.id.tvMsg);
         rvList = findViewById(R.id.rvList);
         contentLoading = findViewById(R.id.contentLoading);
 
@@ -139,6 +145,8 @@ public class AdministradorActivity extends AppCompatActivity {
                             adapter = new LugaresConectados(AdministradorActivity.this, list);
                             rvList.setAdapter(adapter);
                             contentLoading.setVisibility(View.GONE);
+                            AdministradorActivity.noLista = false;
+                            tvMsg.setVisibility(View.GONE);
                             rvList.addOnItemTouchListener(new RecyclerItemClickListener(AdministradorActivity.this, rvList, new RecyclerItemClickListener.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, int position) {
@@ -160,7 +168,9 @@ public class AdministradorActivity extends AppCompatActivity {
                             list = new ArrayList<>(1);
                             adapter = new LugaresConectados(AdministradorActivity.this, list);
                             rvList.setAdapter(adapter);
-                            showToast("No hay registros de estacionamientos ocupados actualmente");
+                            AdministradorActivity.noLista = false;
+                            //showToast("No hay registros de estacionamientos ocupados actualmente");
+                            tvMsg.setVisibility(View.VISIBLE);
                         }
                     }
                 }
@@ -172,6 +182,7 @@ public class AdministradorActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onPause() {
         super.onPause();

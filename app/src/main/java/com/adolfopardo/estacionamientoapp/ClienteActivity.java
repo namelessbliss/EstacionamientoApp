@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adolfopardo.estacionamientoapp.adapter.LugaresConectados;
@@ -42,12 +43,14 @@ public class ClienteActivity extends AppCompatActivity {
     private LugaresConectadosCliente adapter;
     private List<listaReservaCliente> list;
     private ViewGroup contentLoading;
+    TextView tvMsg;
 
     String TAG = "TAG";
 
     private Timer timer;
     private TimerTask timerTask;
     private Handler handler = new Handler();
+    public static boolean noLista = false;
 
     //To stop timer
     private void stopTimer() {
@@ -66,6 +69,8 @@ public class ClienteActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             getListado();
+/*                            if (noLista)
+                                showToast("No hay estacionamientos ocupados ni reservados");*/
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -87,6 +92,7 @@ public class ClienteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SharedPreferencesManager.setStringValue(Constants.DNI, "");
+                eliminarReserva();
                 finish();
             }
         });
@@ -105,6 +111,12 @@ public class ClienteActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        eliminarReserva();
+    }
 
     @Override
     public void onResume() {
@@ -147,37 +159,41 @@ public class ClienteActivity extends AppCompatActivity {
     }
 
     public void eliminarReserva() {
-        String idReserva = "";
-        listaReservaCliente obj = new listaReservaCliente();
+        try {
+            String idReserva = "";
+            listaReservaCliente obj = new listaReservaCliente();
 
-        for (listaReservaCliente lis : list) {
-            if (lis.getEstado().equalsIgnoreCase("0")) {
-                idReserva = lis.getIdEstacionamiento();
-                obj = lis;
-            }
-        }
-
-        RequestEliminar request = new RequestEliminar(SharedPreferencesManager.getStringValue(Constants.DNI), idReserva);
-        Call<ResponseEliminar> call = service.eliminar10min(request);
-
-        if (!idReserva.isEmpty())
-            showToast("Reserva Eliminada");
-        listaReservaCliente finalObj = obj;
-        call.enqueue(new Callback<ResponseEliminar>() {
-            @Override
-            public void onResponse(Call<ResponseEliminar> call, Response<ResponseEliminar> response) {
-                if (response.isSuccessful()) {
-                    showToast("Reserva Eliminada");
-                    list.remove(finalObj);
-                    adapter.notifyDataSetChanged();
+            for (listaReservaCliente lis : list) {
+                if (lis.getEstado().equalsIgnoreCase("0")) {
+                    idReserva = lis.getIdEstacionamiento();
+                    obj = lis;
                 }
             }
 
-            @Override
-            public void onFailure(Call<ResponseEliminar> call, Throwable t) {
-                showToast("Error al eliminar la reserva, contacte al adm");
-            }
-        });
+            RequestEliminar request = new RequestEliminar(SharedPreferencesManager.getStringValue(Constants.DNI), idReserva);
+            Call<ResponseEliminar> call = service.eliminar10min(request);
+
+            if (!idReserva.isEmpty())
+                showToast("Reserva Eliminada");
+            listaReservaCliente finalObj = obj;
+            call.enqueue(new Callback<ResponseEliminar>() {
+                @Override
+                public void onResponse(Call<ResponseEliminar> call, Response<ResponseEliminar> response) {
+                    if (response.isSuccessful()) {
+                        showToast("Reserva Eliminada");
+                        list.remove(finalObj);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseEliminar> call, Throwable t) {
+                    showToast("Error al eliminar la reserva, contacte al adm");
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateGUI(Intent intent) {
@@ -208,6 +224,7 @@ public class ClienteActivity extends AppCompatActivity {
     private void bindViews() {
         toolbar = findViewById(R.id.toolbar);
         rvList = findViewById(R.id.rvList);
+        tvMsg = findViewById(R.id.tvMsg);
         contentLoading = findViewById(R.id.contentLoading);
 
         getListado();
@@ -261,6 +278,8 @@ public class ClienteActivity extends AppCompatActivity {
                             adapter = new LugaresConectadosCliente(ClienteActivity.this, list);
                             rvList.setAdapter(adapter);
                             contentLoading.setVisibility(View.GONE);
+                            ClienteActivity.noLista = false;
+                            tvMsg.setVisibility(View.GONE);
                             rvList.addOnItemTouchListener(new RecyclerItemClickListener(ClienteActivity.this, rvList, new RecyclerItemClickListener.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, int position) {
@@ -274,7 +293,9 @@ public class ClienteActivity extends AppCompatActivity {
                             }));
                         } else {
                             contentLoading.setVisibility(View.GONE);
-                            showToast("No hay estacionamientos ocupados ni reservados");
+                            ClienteActivity.noLista = true;
+                            //showToast("No hay estacionamientos ocupados ni reservados");
+                            tvMsg.setVisibility(View.VISIBLE);
                         }
                     }
                 }
