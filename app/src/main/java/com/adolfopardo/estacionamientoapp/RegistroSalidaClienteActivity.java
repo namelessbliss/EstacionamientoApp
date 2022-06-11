@@ -1,8 +1,10 @@
 package com.adolfopardo.estacionamientoapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +15,12 @@ import com.adolfopardo.estacionamientoapp.retrofit.AeropuertosPeruClient;
 import com.adolfopardo.estacionamientoapp.retrofit.AeropuertosPeruService;
 import com.adolfopardo.estacionamientoapp.retrofit.request.RequestregistroSalida;
 import com.adolfopardo.estacionamientoapp.retrofit.response.registroSalida;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
 
-import java.text.ParseException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegistroSalidaActivity extends AppCompatActivity {
+public class RegistroSalidaClienteActivity extends AppCompatActivity {
 
     private TextView tvPlaca, tvEsta, tvEstacionamiento, tvCosto, tvHoraEntrada, tvTiempoEstimado, tvCostoTotal;
     Toolbar toolbar;
@@ -35,10 +41,14 @@ public class RegistroSalidaActivity extends AppCompatActivity {
 
     String idReservacion, IDEstacionamiento;
 
+    private int PAYPAL_REQ_CODE = 12;
+    private static PayPalConfiguration payPalConfiguration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_NO_NETWORK)
+            .clientId(PaypalClientIDConfigClass.PAYPAL_CLIENT_ID);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_salida);
+        setContentView(R.layout.activity_registro_salida_cliente);
         retrofitInit();
         bindViews();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -47,6 +57,10 @@ public class RegistroSalidaActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration);
+        startService(intent);
     }
 
 
@@ -69,7 +83,12 @@ public class RegistroSalidaActivity extends AppCompatActivity {
     }
 
     public void RegistrarSalida(View view) {
-        RequestregistroSalida request = new RequestregistroSalida(idReservacion, IDEstacionamiento, "E");
+        //TODO llamar https://tunquidevs.com/controllers/editarMetodoPago.php en caso sea A1
+        /*{
+            "idReservacion" : 111,
+                "metodo_pago" : "E"
+        }*/
+        RequestregistroSalida request = new RequestregistroSalida(idReservacion, IDEstacionamiento, "F");
         Call<registroSalida> call;
         if (IDEstacionamiento.equalsIgnoreCase("A1")) {
             call = service.registrarSalidaReservaA1(request);
@@ -84,6 +103,35 @@ public class RegistroSalidaActivity extends AppCompatActivity {
                     if (response.body().getDescripcion().equalsIgnoreCase("Registrado")) {
                         showToast(response.body().getDescripcion());
                         goToActivity(new AdministradorActivity());
+                    } else {
+                        showToast("ERROR: " + response.body().getDescripcion());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<registroSalida> call, Throwable t) {
+                showToast("Ocurrio un error");
+            }
+        });
+    }
+
+    public void RegistrarSalida() {
+        RequestregistroSalida request = new RequestregistroSalida(idReservacion, IDEstacionamiento, "F");
+        Call<registroSalida> call;
+        if (IDEstacionamiento.equalsIgnoreCase("A1")) {
+            call = service.registrarSalidaReservaA1(request);
+        }else{
+            call = service.registrarSalidaReserva(request);
+        }
+
+        call.enqueue(new Callback<registroSalida>() {
+            @Override
+            public void onResponse(Call<registroSalida> call, Response<registroSalida> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getDescripcion().equalsIgnoreCase("Registrado")) {
+                        showToast("Pago " + response.body().getDescripcion());
+                        goToActivity(new ClienteActivity());
                     } else {
                         showToast("ERROR: " + response.body().getDescripcion());
                     }
@@ -162,8 +210,8 @@ public class RegistroSalidaActivity extends AppCompatActivity {
         System.out.printf(
                 "%d days, %d hours, %d minutes, %d seconds%n",
                 elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
-        tvTiempoEstimado.setText(String.format("%d días, %d horas, %d minutos,",
-                elapsedDays, elapsedHours, elapsedMinutes));
+        tvTiempoEstimado.setText(String.format("%d horas, %d minutos,%d s",
+                elapsedHours, elapsedMinutes, elapsedSeconds));
 
         double tiempoTotal = ((24 * elapsedDays) / 60) + (elapsedHours / 60) + elapsedMinutes;
         double costoMinuto = 0.0666666666666667;
@@ -189,5 +237,36 @@ public class RegistroSalidaActivity extends AppCompatActivity {
         decimal = (int) (decimal * 100);
         double truncado = decimal / 100.0f;
         return truncado;
+    }
+
+    public void Pagar(View view) {
+        //TODO pagar paypal
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(Double.parseDouble(tvCostoTotal.getText().toString())/4), "USD", "Pagar Estacionamiento", PayPalPayment.PAYMENT_INTENT_SALE);
+
+        Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+
+        startActivityForResult(intent, PAYPAL_REQ_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PAYPAL_REQ_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                RegistrarSalida();
+                showToast("Pago Registrado");
+            } else {
+                showToast("Error Registro pago");
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
     }
 }

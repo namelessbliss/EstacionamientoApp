@@ -128,4 +128,8 @@ public class CuentaAdminActivity extends AppCompatActivity {
         Intent intent = new Intent(CuentaAdminActivity.this, activity.getClass());
         startActivity(intent);
     }
+
+    public void FlujoPagos(View view) {
+        goToActivity(new FlujoPagosActivity());
+    }
 }

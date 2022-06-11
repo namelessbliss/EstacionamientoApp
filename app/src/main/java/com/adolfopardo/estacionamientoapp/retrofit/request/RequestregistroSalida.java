@@ -12,12 +12,18 @@ public class RequestregistroSalida {
     @Expose
     private String IDEstacionamiento;
 
+    //Todo mandar metodo de pago E= efectivo F=paypal
+    @SerializedName("metodo_pago")
+    @Expose
+    private String metodo_pago;
+
     public RequestregistroSalida() {
     }
 
-    public RequestregistroSalida(String idReservacion, String IDEstacionamiento) {
+    public RequestregistroSalida(String idReservacion, String IDEstacionamiento, String metodo_pago) {
         this.idReservacion = idReservacion;
         this.IDEstacionamiento = IDEstacionamiento;
+        this.metodo_pago = metodo_pago;
     }
 
     public String getIdReservacion() {

@@ -12,10 +12,12 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/ivPay"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="8dp"
             android:layout_gravity="center"
-            android:src="@drawable/circle" />
+            android:src="@drawable/money" />
     </LinearLayout>
 
     <LinearLayout
@@ -25,17 +27,9 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvFecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            android:text="Fecha: 03/10/2021"
-            android:textColor="@color/black"
-            android:textSize="@dimen/subtitle" />
 
-       <!-- <TextView
-            android:id="@+id/tvPlaca"
+        <TextView
+            android:id="@+id/tvCliente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
@@ -44,7 +38,7 @@
             android:textSize="@dimen/text" />
 
         <TextView
-            android:id="@+id/tvFechaEntrada"
+            android:id="@+id/tvFechaPago"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
@@ -53,13 +47,31 @@
             android:textSize="@dimen/text" />
 
         <TextView
-            android:id="@+id/tvFechaSalida"
+            android:id="@+id/tvMonto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
             android:text="Ingresos: 27"
             android:textColor="@color/black"
-            android:textSize="@dimen/text" />-->
+            android:textSize="@dimen/text" />
+
+        <TextView
+            android:id="@+id/tvMetodoPago"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:text="Ingresos: 27"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text" />
+
+        <TextView
+            android:id="@+id/tvEstacionamiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:text="Ingresos: 27"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text" />
     </LinearLayout>
 
 </LinearLayout>

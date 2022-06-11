@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class AdministradorActivity extends AppCompatActivity {
     private ViewGroup contentLoading;
     private EditText etPlaca;
     TextView tvMsg;
+    ProgressBar progressBar;
 
     private Timer timer;
     private TimerTask timerTask;
@@ -101,6 +103,7 @@ public class AdministradorActivity extends AppCompatActivity {
         tvMsg = findViewById(R.id.tvMsg);
         rvList = findViewById(R.id.rvList);
         contentLoading = findViewById(R.id.contentLoading);
+        progressBar = findViewById(R.id.progressBar);
 
         getListado();
     }
@@ -171,6 +174,7 @@ public class AdministradorActivity extends AppCompatActivity {
                             AdministradorActivity.noLista = false;
                             //showToast("No hay registros de estacionamientos ocupados actualmente");
                             tvMsg.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 }

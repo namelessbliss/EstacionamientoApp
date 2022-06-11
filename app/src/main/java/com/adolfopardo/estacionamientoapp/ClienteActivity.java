@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class ClienteActivity extends AppCompatActivity {
     private LugaresConectadosCliente adapter;
     private List<listaReservaCliente> list;
     private ViewGroup contentLoading;
+    private ProgressBar progressBar;
     TextView tvMsg;
 
     String TAG = "TAG";
@@ -226,6 +228,7 @@ public class ClienteActivity extends AppCompatActivity {
         rvList = findViewById(R.id.rvList);
         tvMsg = findViewById(R.id.tvMsg);
         contentLoading = findViewById(R.id.contentLoading);
+        progressBar = findViewById(R.id.progressBar);
 
         getListado();
     }
@@ -283,7 +286,13 @@ public class ClienteActivity extends AppCompatActivity {
                             rvList.addOnItemTouchListener(new RecyclerItemClickListener(ClienteActivity.this, rvList, new RecyclerItemClickListener.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, int position) {
-                                    showToast("Estacionado en: " + list.get(position).getIdEstacionamiento());
+                                    //showToast("Estacionado en: " + list.get(position).getIdEstacionamiento());
+                                    Intent intent = new Intent(ClienteActivity.this, RegistroSalidaClienteActivity.class);
+                                    intent.putExtra("idReservacion", list.get(position).getIdReservacion());
+                                    intent.putExtra("IDEstacionamiento", list.get(position).getIdEstacionamiento());
+                                    intent.putExtra("placa", list.get(position).getNombrePlaca());
+                                    intent.putExtra("fechaEntrada", list.get(position).getFechaEntrada());
+                                    startActivity(intent);
                                 }
 
                                 @Override
@@ -292,10 +301,10 @@ public class ClienteActivity extends AppCompatActivity {
                                 }
                             }));
                         } else {
-                            contentLoading.setVisibility(View.GONE);
                             ClienteActivity.noLista = true;
                             //showToast("No hay estacionamientos ocupados ni reservados");
                             tvMsg.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 }

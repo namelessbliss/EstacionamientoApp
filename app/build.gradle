@@ -48,4 +48,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.0'
 
     implementation'com.squareup.retrofit2:converter-scalars:2.1.0'
+
+    //paypal
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.14.2'
 }

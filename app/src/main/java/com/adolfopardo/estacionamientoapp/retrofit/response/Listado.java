@@ -37,6 +37,12 @@ public class Listado implements Parcelable {
     @SerializedName("nombrePlaca")
     @Expose
     private String nombrePlaca;
+    @SerializedName("Nombres")
+    @Expose
+    private String nombres;
+    @SerializedName("metodo_pago")
+    @Expose
+    private String metodoPago;
 
     protected Listado(Parcel in) {
         dni = in.readString();
@@ -49,6 +55,8 @@ public class Listado implements Parcelable {
         costoHora = in.readString();
         estado = in.readString();
         nombrePlaca = in.readString();
+        nombres = in.readString();
+        metodoPago = in.readString();
     }
 
     public static final Creator<Listado> CREATOR = new Creator<Listado>() {
@@ -62,6 +70,22 @@ public class Listado implements Parcelable {
             return new Listado[size];
         }
     };
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
 
     public String getDni() {
         return dni;
@@ -160,5 +184,7 @@ public class Listado implements Parcelable {
         parcel.writeString(costoHora);
         parcel.writeString(estado);
         parcel.writeString(nombrePlaca);
+        parcel.writeString(nombres);
+        parcel.writeString(metodoPago);
     }
 }

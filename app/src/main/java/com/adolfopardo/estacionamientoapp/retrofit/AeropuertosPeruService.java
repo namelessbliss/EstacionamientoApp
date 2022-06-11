@@ -38,7 +38,7 @@ public interface AeropuertosPeruService {
     Call<List<listaPlacaCliente>> listarPlacasCliente(@Body RequestlistaPlacasCliente request);
 
     @Headers("Content-Type: application/json")
-    @POST("registrarReserva.php")
+    @POST("registrarReserva.php") //todo cambiado de  registrarReserva a registrarReservaInmediata
     Call<registroReserva> registrarReserva(@Body RequestregistroReserva request);
 
     @Headers("Content-Type: application/json")
@@ -77,6 +77,10 @@ public interface AeropuertosPeruService {
     @Headers("Content-Type: application/json")
     @POST("registrarSalidaReserva.php")
     Call<registroSalida> registrarSalidaReserva(@Body RequestregistroSalida request);
+
+    @Headers("Content-Type: application/json")
+    @POST("registrarSalidaReserva.php")
+    Call<registroSalida> registrarSalidaReservaA1(@Body RequestregistroSalida request);
 
     @Headers("Content-Type: application/json")
     @POST("eliminar10min.php")
