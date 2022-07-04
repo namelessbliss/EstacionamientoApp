@@ -87,7 +87,7 @@ public class SeleccionEstacionamientoActivity extends AppCompatActivity implemen
                     public void run() {
                         try {
                             doSomething();
-                            doSomething2();
+                            //doSomething2();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -273,11 +273,11 @@ public class SeleccionEstacionamientoActivity extends AppCompatActivity implemen
                                 switch (obj.getIDEstacionamiento()) {
                                     case "A1":
                                         if (obj.getEstado().equalsIgnoreCase("0")) {
-                                            //A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
-                                            //A1.setTag("0");
+                                            A1.setImageDrawable(getDrawable(R.drawable.ic_car_green));
+                                            A1.setTag("0");
                                         } else {
-                                            //A1.setImageDrawable(getDrawable(R.drawable.ic_car_red));
-                                            //A1.setTag("1");
+                                            A1.setImageDrawable(getDrawable(R.drawable.ic_car_red));
+                                            A1.setTag("1");
                                         }
                                         break;
                                     case "A2":

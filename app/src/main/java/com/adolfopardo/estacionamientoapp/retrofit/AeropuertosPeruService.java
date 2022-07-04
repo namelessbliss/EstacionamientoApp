@@ -86,4 +86,8 @@ public interface AeropuertosPeruService {
     @POST("eliminar10min.php")
     Call<ResponseEliminar> eliminar10min(@Body RequestEliminar request);
 
+    @Headers("Content-Type: application/json")
+    @POST("editarMetodoPago.php")
+    Call<registroSalida> editarMetodoPago(@Body RequestregistroSalida request);
+
 }

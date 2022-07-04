@@ -38,6 +38,7 @@ public class RegistroSalidaClienteActivity extends AppCompatActivity {
     private AeropuertosPeruClient client;
     private AeropuertosPeruService service;
     private Toast toast;
+    String estacionamiento;
 
     String idReservacion, IDEstacionamiento;
 
@@ -82,17 +83,18 @@ public class RegistroSalidaClienteActivity extends AppCompatActivity {
         setData();
     }
 
+    /***
+     * DEPRECATED
+     * @param view
+     */
     public void RegistrarSalida(View view) {
-        //TODO llamar https://tunquidevs.com/controllers/editarMetodoPago.php en caso sea A1
-        /*{
-            "idReservacion" : 111,
-                "metodo_pago" : "E"
-        }*/
-        RequestregistroSalida request = new RequestregistroSalida(idReservacion, IDEstacionamiento, "F");
+
+        RequestregistroSalida request;
+        request = new RequestregistroSalida(idReservacion, IDEstacionamiento, "F");
         Call<registroSalida> call;
         if (IDEstacionamiento.equalsIgnoreCase("A1")) {
-            call = service.registrarSalidaReservaA1(request);
-        }else{
+            call = service.editarMetodoPago(request);
+        } else {
             call = service.registrarSalidaReserva(request);
         }
 
@@ -120,8 +122,8 @@ public class RegistroSalidaClienteActivity extends AppCompatActivity {
         RequestregistroSalida request = new RequestregistroSalida(idReservacion, IDEstacionamiento, "F");
         Call<registroSalida> call;
         if (IDEstacionamiento.equalsIgnoreCase("A1")) {
-            call = service.registrarSalidaReservaA1(request);
-        }else{
+            call = service.editarMetodoPago(request);
+        } else {
             call = service.registrarSalidaReserva(request);
         }
 
@@ -148,10 +150,11 @@ public class RegistroSalidaClienteActivity extends AppCompatActivity {
     private void setData() {
         try {
             Intent intent = getIntent();
+            estacionamiento = intent.getStringExtra("IDEstacionamiento");
             idReservacion = intent.getStringExtra("idReservacion");
             IDEstacionamiento = intent.getStringExtra("IDEstacionamiento");
             tvPlaca.setText(intent.getStringExtra("placa"));
-            tvEsta.setText(intent.getStringExtra("IDEstacionamiento"));
+            tvEsta.setText(estacionamiento.toString());
             tvEstacionamiento.setText(intent.getStringExtra("IDEstacionamiento"));
             tvCosto.setText("S/. 4.00");
             tvHoraEntrada.setText(intent.getStringExtra("fechaEntrada"));
@@ -241,7 +244,7 @@ public class RegistroSalidaClienteActivity extends AppCompatActivity {
 
     public void Pagar(View view) {
         //TODO pagar paypal
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(Double.parseDouble(tvCostoTotal.getText().toString())/4), "USD", "Pagar Estacionamiento", PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(Double.parseDouble(tvCostoTotal.getText().toString()) / 4), "USD", "Pagar Estacionamiento", PayPalPayment.PAYMENT_INTENT_SALE);
 
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration);
