@@ -36,7 +36,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Registro de entradas y salidas"
+                    android:text="Registro de Pagos"
                     android:textColor="@android:color/background_dark"
                     android:theme="@style/subtitulo"
                     app:layout_constraintBottom_toBottomOf="parent"

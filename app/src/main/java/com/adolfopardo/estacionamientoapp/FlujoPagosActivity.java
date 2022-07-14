@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +42,30 @@ public class FlujoPagosActivity extends AppCompatActivity {
     private List<autosEntradasSalidas> list;
     private ViewGroup contentLoading;
 
+    private Timer timer;
+    private TimerTask timerTask;
+    private Handler handler = new Handler();
+
+    private void startTimer() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            getListado();
+/*                            if (noLista)
+                                showToast("No hay estacionamientos ocupados ni reservados");*/
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(timerTask, 100, 1000);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +78,7 @@ public class FlujoPagosActivity extends AppCompatActivity {
                 finish();
             }
         });
+        startTimer();
     }
 
     private void bindViews() {

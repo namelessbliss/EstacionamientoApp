@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     public void goToActivity(AppCompatActivity activity) {
         Intent intent = new Intent(LoginActivity.this, activity.getClass());
         startActivity(intent);
+        finish();
     }
 
     private void retrofitInit() {

@@ -1,23 +1,26 @@
 package com.adolfopardo.estacionamientoapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adolfopardo.estacionamientoapp.adapter.LugaresConectados;
 import com.adolfopardo.estacionamientoapp.adapter.LugaresConectadosCliente;
 import com.adolfopardo.estacionamientoapp.retrofit.AeropuertosPeruClient;
 import com.adolfopardo.estacionamientoapp.retrofit.AeropuertosPeruService;
@@ -53,6 +56,8 @@ public class ClienteActivity extends AppCompatActivity {
     private TimerTask timerTask;
     private Handler handler = new Handler();
     public static boolean noLista = false;
+
+    boolean cerrarApp;
 
     //To stop timer
     private void stopTimer() {
@@ -101,6 +106,7 @@ public class ClienteActivity extends AppCompatActivity {
         startTimer();
         startService(new Intent(this, BroadcastService.class));
         Log.i(TAG, "Started service");
+        cerrarApp = true;
     }
 
     private BroadcastReceiver br = new BroadcastReceiver() {
@@ -116,8 +122,39 @@ public class ClienteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
         eliminarReserva();
+        if (cerrarApp) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ClienteActivity.this);
+            builder.setCancelable(false);
+            ViewGroup viewGroup = findViewById(android.R.id.content);
+            View dialogView = LayoutInflater.from(ClienteActivity.this).inflate(R.layout.rate_dialog, viewGroup, false);
+            builder.setView(dialogView);
+            Button playstore = (Button) dialogView.findViewById(R.id.btnPlaystore);
+            Button nota = (Button) dialogView.findViewById(R.id.btnNota);
+            Button salir = (Button) dialogView.findViewById(R.id.btnCerrar);
+            AlertDialog alertDialog = builder.create();
+            //alertDialog.setCanceledOnTouchOutside(false);
+            playstore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    gotoPlaystore();
+                }
+            });
+            nota.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    gotoSugerencias();
+                }
+            });
+            salir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+            alertDialog.show();
+        }
     }
 
     @Override
@@ -135,9 +172,39 @@ public class ClienteActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
-        super.onPause();
-        //unregisterReceiver(br);
         Log.i(TAG, "Unregistered broacast receiver");
+        if (cerrarApp) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ClienteActivity.this);
+            ViewGroup viewGroup = findViewById(android.R.id.content);
+            View dialogView = LayoutInflater.from(ClienteActivity.this).inflate(R.layout.rate_dialog, viewGroup, false);
+            builder.setView(dialogView);
+            Button playstore = (Button) dialogView.findViewById(R.id.btnPlaystore);
+            Button nota = (Button) dialogView.findViewById(R.id.btnNota);
+            Button salir = (Button) dialogView.findViewById(R.id.btnCerrar);
+            AlertDialog alertDialog = builder.create();
+            //alertDialog.setCanceledOnTouchOutside(false);
+            playstore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    gotoPlaystore();
+                }
+            });
+            nota.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    gotoSugerencias();
+                }
+            });
+            salir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+            alertDialog.show();
+            super.onPause();
+        }
+        super.onPause();
     }
 
     @Override
@@ -158,6 +225,14 @@ public class ClienteActivity extends AppCompatActivity {
             eliminarReserva();
         }
         super.onDestroy();
+    }
+
+    private void gotoPlaystore() {
+        Toast.makeText(ClienteActivity.this, "PLAYSTORE", Toast.LENGTH_SHORT).show();
+    }
+
+    private void gotoSugerencias() {
+        Toast.makeText(ClienteActivity.this, "NOTA", Toast.LENGTH_SHORT).show();
     }
 
     public void eliminarReserva() {
@@ -230,7 +305,7 @@ public class ClienteActivity extends AppCompatActivity {
         contentLoading = findViewById(R.id.contentLoading);
         progressBar = findViewById(R.id.progressBar);
 
-        getListado();
+        //getListado();
     }
 
     private void retrofitInit() {
@@ -259,6 +334,7 @@ public class ClienteActivity extends AppCompatActivity {
     }
 
     public void goToActivity(AppCompatActivity activity) {
+        cerrarApp = false;
         Intent intent = new Intent(ClienteActivity.this, activity.getClass());
         startActivity(intent);
     }
@@ -286,6 +362,7 @@ public class ClienteActivity extends AppCompatActivity {
                             rvList.addOnItemTouchListener(new RecyclerItemClickListener(ClienteActivity.this, rvList, new RecyclerItemClickListener.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, int position) {
+                                    cerrarApp = false;
                                     //showToast("Estacionado en: " + list.get(position).getIdEstacionamiento());
                                     Intent intent = new Intent(ClienteActivity.this, RegistroSalidaClienteActivity.class);
                                     intent.putExtra("idReservacion", list.get(position).getIdReservacion());
@@ -316,4 +393,5 @@ public class ClienteActivity extends AppCompatActivity {
             }
         });
     }
+
 }

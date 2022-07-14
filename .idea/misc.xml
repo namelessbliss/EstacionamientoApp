@@ -32,6 +32,7 @@
         <entry key="..\:/Netdreams/EstacionamientoApp/app/src/main/res/layout/lista_ingreso_salida_detalle.xml" value="0.3494791666666667" />
         <entry key="..\:/Netdreams/EstacionamientoApp/app/src/main/res/layout/lista_placas.xml" value="0.3494791666666667" />
         <entry key="..\:/Netdreams/EstacionamientoApp/app/src/main/res/layout/lista_vehiculos_dia.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/ic_playstore_svgrepo_com.xml" value="0.171" />
         <entry key="app/src/main/res/layout/activity_administrador.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/activity_cliente.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/activity_cuenta_admin.xml" value="0.3536458333333333" />
@@ -47,6 +48,7 @@
         <entry key="app/src/main/res/layout/lista_estacionamientos_conectados.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/lista_ingreso_salida_detalle.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/lista_pago_detalle.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/layout/rate_dialog.xml" value="0.35989583333333336" />
       </map>
     </option>
   </component>

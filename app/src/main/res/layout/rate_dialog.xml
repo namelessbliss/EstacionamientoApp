@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Califica la aplicación"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:numStars="5"
+            android:saveEnabled="true" />
+
+        <Button
+            android:id="@+id/btnPlaystore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:drawableStart="@drawable/ic_playstore_svgrepo_com"
+            android:paddingVertical="20dp"
+            android:text="Ir a la playstore" />
+
+        <Button
+            android:id="@+id/btnNota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:drawableStart="@drawable/ic_note_svgrepo_com"
+            android:paddingVertical="20dp"
+            android:text="Dejar sugerencias" />
+
+        <Button
+            android:id="@+id/btnCerrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="8dp"
+            android:paddingVertical="20dp"
+            android:text="Salir"
+            android:textColor="@color/profilePrimaryDark" />
+    </LinearLayout>
+
+</LinearLayout>
